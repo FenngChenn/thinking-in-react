@@ -22,6 +22,18 @@ var SearchBar = React.createClass({
   }
 });
 
+var ProductTable = React.createClass({
+  render:function(){
+    var row = [];
+    var lastCategory = null;
+    this.props.products.forEach(function(product){
+      
+    });
+    return(
+
+    );
+  }
+});
 var PRODUCTS = [
   {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
   {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
