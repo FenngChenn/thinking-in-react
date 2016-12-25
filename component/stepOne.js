@@ -47,7 +47,24 @@ var ProductTable = React.createClass({
   }
 });
 
-var ProductCategoryRow
+var ProductCategoryRow =React.createClass({
+  render: function(){
+    return(
+      <tr><th colSpan="2">{this.props.category}</th></tr>
+    );
+  }
+});
+var ProductRow = React.createClass({
+  render: function(){
+    var productName = this.props.product.stocked ? this.props.product.name : <span style={{color:'red'}}>{this.props.product.name}</span>;
+    return(
+      <tr>
+        <td>{productName}</td>
+        <td>{this.props.product.price}</td>
+      </tr>
+    );
+  }
+});
 var PRODUCTS = [
   {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
   {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
