@@ -9,7 +9,7 @@ var FilterableProductTable = React.createClass({
     return(
       <div>
         <SearchBar filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
-        <ProductTable products={this.props.products}filterText={this.state.filterText} inStockOnly={this.state.inStockOnly}  />
+        <ProductTable products={this.props.products} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
       </div>
     );
   }
@@ -19,9 +19,10 @@ var SearchBar = React.createClass({
   render: function(){
     return(
       <form>
-        <input type="text" placeholder="Search..." />
+        //将用户输入的值传到子组件SearchBar中
+        <input type="text" placeholder="Search..." value={this.props.filterText} />
         <p>
-          <input type="checkbox" />
+          <input type="checkbox" checked={this.props.inStockOnly} />
         </p>
       </form>
     );
@@ -33,12 +34,16 @@ var ProductTable = React.createClass({
     var rows = [];
     var lastCategory = null;
     this.props.products.forEach(function(product){
+      //过滤用户输入的关键字与数据相匹配，模糊查询后如果没有结果，则退出循环
+      if(product.name.indexOf(this.props.filterText) == -1 || (!product.stocked && this.props.inStockOnly)){
+        return;
+      }
       if(product.category !== lastCategory){
         rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
       }
       rows.push(<ProductRow product={product} key={product.name} />)
       lastCategory = product.category;
-    });
+    }.bind(this));
     return(
       <table>
         <thead>
